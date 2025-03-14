@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDS Dashboard</title>
+</head>
+<body>
+    <h1>Intrusion Detection System Logs</h1>
+    <table border="1">
+        <tr><th>ID</th><th>IP Address</th><th>Port</th><th>Payload</th><th>Timestamp</th></tr>
+        <tbody id="logTable"></tbody>
+    </table>
+    <script>
+        fetch('/logs')
+            .then(response => response.json())
+            .then(data => {
+                let rows = "";
+                data.forEach(log => {
+                    rows += `<tr><td>${log.id}</td><td>${log.ip}</td><td>${log.port}</td><td>${log.payload}</td><td>${log.timestamp}</td></tr>`;
+                });
+                document.getElementById('logTable').innerHTML = rows;
+            });
+    </script>
+</body>
+</html>
